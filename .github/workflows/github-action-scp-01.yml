@@ -1,0 +1,19 @@
+name: SCP files From Actions To EC2
+on: push
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: File made by Github Actions ubuntu
+        run: sed 's/version:0.0.1/version:0.0.2/' src/main/java/actions/controller/ActionsController.java
+    
+      - name: From Github Actions to AWS EC2 through SCP
+        uses: appleboy/scp-action@v0.1.7
+        with: 
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          source: src/main/java/actions/controller/ActionsController.java
+          target: /home/ubuntu/app-with-actions/src/main/java/actions/controller
