@@ -20,6 +20,7 @@ jobs:
         cd ./src/main/resources
         touch ./application.properties
         echo "${{ secrets.PROPERTIES }}" > ./application.properties
+        sudo apt install mysql-server
       shell: bash
       
     - name: Build with Maven
