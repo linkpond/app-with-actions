@@ -37,6 +37,6 @@ jobs:
         REPOSITORY: second-ecr
         IMAGE_TAG: latest
       run: |
-        aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 318889093234.dkr.ecr.ap-northeast-2.amazonaws.com
-        docker build -t $REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+        aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.ECR_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
+        docker build -t ${{ secrets.ECR_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/$REPOSITORY:$IMAGE_TAG .
+        docker push ${{ secrets.ECR_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/$REPOSITORY:$IMAGE_TAG
